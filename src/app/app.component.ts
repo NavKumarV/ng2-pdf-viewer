@@ -45,6 +45,12 @@ export class AppComponent {
   outline: any[];
   isOutlineShown = false;
   pdfQuery = '';
+  pdfList = [
+    {name: 'One', path: 'assets/pdf/one.pdf'},
+    {name: 'Two', path: 'assets/pdf/two.pdf'},
+    {name: 'Three', path: 'assets/pdf/three.pdf'},
+    {name: 'Four (Wrong Path/ unmatched path)', path: 'assets/pdf/four.pdf'}
+  ]
 
   @ViewChild(PdfViewerComponent)
   private pdfComponent: PdfViewerComponent;
@@ -129,7 +135,7 @@ export class AppComponent {
   onError(error: any) {
     this.error = error; // set error
 
-    if (error.name === 'PasswordException') {
+    if (error && error.name === 'PasswordException') {
       const password = prompt(
         'This document is password protected. Enter the password:'
       );
@@ -212,5 +218,9 @@ export class AppComponent {
         highlightAll: true
       });
     }
+  }
+
+  selectPdf(pdf){
+    this.pdfSrc = pdf.path;
   }
 }
